@@ -9,9 +9,13 @@ import java.util.List;
  */
 public class MedicalRecord implements Serializable{
     private static final long serialVersionUID = 1L;
+    /** The unique ID of the patient associated with this medical record. */
     private String patientID;
+    /** The blood type of the patient. */
     private String bloodType;
+    /** A list of diagnoses for the patient. */
     private List<String> diagnoses;
+    /** A list of treatments administered to the patient. */
     private List<String> treatments;
 
     /**

@@ -11,13 +11,19 @@ public abstract class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // Fields
+    /** The unique ID of the user. */
     protected String userID;
+     /** The hashed password of the user. */
     protected String passwordHash; // Store hashed password
+    /** The name of the user. */
     protected String name;
+    /** The gender of the user. */
     protected String gender;
+    /** The role of the user in the system. */
     protected String role;
+     /** Indicates whether this is the user's first login. */
     protected boolean isFirstLogin;
-
+    /** The default password for users. */
     private static final String DEFAULT_PASSWORD = "password";
 
     /**

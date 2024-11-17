@@ -16,10 +16,15 @@ import java.util.Scanner;
  * respond to appointment requests, and set their availability for appointments.
  */
 public class Doctor extends User {
+    /** The unique identifier for the doctor. */
     private String doctorID;
+    /** The specialty of the doctor (e.g., "Cardiology", "Radiology"). */
     private String specialty;
+    /** A list of appointments scheduled for the doctor. */
     private List<Appointment> schedule; //schedule of appts
+    /** A map of availability slots for each date. */
     private Map<LocalDate, List<TimeRange>> availability; //daily availability
+    /** A map of blocked slots for each date, indicating times the doctor is unavailable. */
     private Map<LocalDate, List<TimeRange>> blockedSlots;
 
 
@@ -43,8 +48,10 @@ public class Doctor extends User {
     }
     
     /**
-     * @return The specialty of the doctor.
-     */
+ * Retrieves the doctor's specialty.
+ *
+ * @return The specialty of the doctor as a {@code String}.
+ */
     public String getSpecialty() {
         return specialty;
     }
@@ -59,24 +66,30 @@ public class Doctor extends User {
     }
     
     /**
-     * @return The unique ID of the doctor.
-     */
+ * Retrieves the unique ID of the doctor.
+ *
+ * @return The unique doctor ID as a {@code String}.
+ */
     public String getDoctorID() {
         return doctorID;
     }
 
     /**
-     * @return The availability of the doctor.
-     */
+ * Retrieves the doctor's availability for appointments.
+ * The availability is represented as a map of dates to time ranges.
+ *
+ * @return A map of {@code LocalDate} to {@code List<TimeRange>} representing availability.
+ */
     public Map<LocalDate, List<TimeRange>> getAvailability() {
             return availability;
         }
 
     /**
-     * Displays all patients associated with the hospital system.
-     *
-     * @param patients The list of all patients.
-     */
+ * Displays a list of all patients in the hospital system.
+ * The list includes patient IDs and names.
+ *
+ * @param patients The list of all patients to display.
+ */
         public void viewAllPatients(List<Patient> patients) {
         System.out.println("=======================================");
         System.out.println("             All Patients              ");
@@ -101,20 +114,20 @@ public class Doctor extends User {
     }
 
     /**
-     * Views the medical record of a specific patient.
-     *
-     * @param patient The patient whose medical record is to be viewed.
-     */
+ * Views the medical record of a specific patient.
+ *
+ * @param patient The {@code Patient} whose medical record is to be viewed.
+ */
     public void viewPatientMedicalRecord(Patient patient) {
         System.out.println("Viewing medical record for Patient ID: " + patient.getuserID());
         System.out.println(patient.getMedicalRecord().toString());
     }
 
     /**
-     * Updates the medical record of a specific patient.
-     *
-     * @param patient The patient whose medical record is to be updated.
-     */
+ * Updates the medical record of a specific patient by adding a diagnosis or treatment.
+ *
+ * @param patient The {@code Patient} whose medical record is to be updated.
+ */
     public void updatePatientMedicalRecord(Patient patient) {
         System.out.println("Updating medical record for Patient ID: " + patient.getuserID());
         
@@ -151,9 +164,9 @@ public class Doctor extends User {
     }
 
     /**
-     * Sets the availability of the doctor for appointments.
-     * Doctors can choose between default availability or customize blocked times.
-     */
+ * Sets the doctor's availability for appointments.
+ * The doctor can either use default availability or customize blocked times.
+ */
     public void setAvailability() {
         System.out.println("""
             Welcome to setting availability for appointments.
@@ -177,12 +190,12 @@ public class Doctor extends User {
     }
 
     /**
-     * Checks for conflicts with scheduled appointments or blocked slots.
-     *
-     * @param start The start time of the slot to check.
-     * @param end   The end time of the slot to check.
-     * @return True if a conflict exists, false otherwise.
-     */
+ * Checks for conflicts with the doctor's schedule, including appointments and blocked slots.
+ *
+ * @param start The start time of the slot to check as a {@code LocalDateTime}.
+ * @param end   The end time of the slot to check as a {@code LocalDateTime}.
+ * @return {@code true} if a conflict exists; {@code false} otherwise.
+ */
     public boolean hasConflict(LocalDateTime start, LocalDateTime end) {
         // Check for conflicts with scheduled appointments
         for (Appointment appointment : schedule) {
@@ -381,7 +394,7 @@ public class Doctor extends User {
         return input;
     }
 
-
+    /** A list of pending appointments for the doctor. */
     private List<Appointment> pendingAppointments = new ArrayList<>();
 
     /**
@@ -394,10 +407,11 @@ public class Doctor extends User {
     }
 
     /**
-     * Handles responses to appointment requests.
-     *
-     * @param schedulingSystem The scheduling system instance to manage appointments.
-     */
+ * Handles responses to pending appointment requests.
+ * The doctor can accept or reject the requests.
+ *
+ * @param schedulingSystem The {@code SchedulingSystem} instance to manage appointments.
+ */
     public void respondToAppointmentRequests(SchedulingSystem schedulingSystem) {
         // Display pending appointments for the doctor
         schedulingSystem.viewPendingAppointmentsForDoctor(this);
@@ -453,10 +467,10 @@ public class Doctor extends User {
     }
 
     /**
-    * Cancels an appointment and restores the corresponding time slot to the doctor's availability.
-    *
-    * @param appointment The appointment to be canceled.
-    */
+ * Cancels an appointment and restores the corresponding time slot to the doctor's availability.
+ *
+ * @param appointment The {@code Appointment} to be canceled.
+ */
     public void cancelAppointment(Appointment appointment) {
         if (schedule.remove(appointment)) {
             LocalDate date = appointment.getDateTime().toLocalDate();
@@ -512,10 +526,10 @@ public class Doctor extends User {
 
     
 /**
- * Records the outcome of a confirmed appointment by prompting the doctor for details.
- * The outcome includes any prescribed medications and consultation notes.
+ * Records the outcome of a confirmed appointment.
+ * Prompts the doctor to add prescribed medications and consultation notes.
  *
- * @param inventory The inventory instance to manage prescribed medications.
+ * @param inventory The {@code Inventory} instance to manage prescribed medications.
  */
 public void recordAppointmentOutcome(Inventory inventory) {
     System.out.println("\nConfirmed Appointments for Dr. " + getName() + ":");
@@ -603,9 +617,7 @@ public void recordAppointmentOutcome(Inventory inventory) {
     }
 
      /**
- * Displays the doctor's personal menu for performing various actions.
- * This method provides options for managing patient records, schedules,
- * appointments, and other responsibilities.
+ * Displays the doctor's menu for managing schedules, appointments, and patient records.
  */
     @Override
     public void displayMenu() {

@@ -8,10 +8,15 @@ import java.util.List;
  */
 public class Medication implements Serializable {
     private static final long serialVersionUID = 1L;
+    /** The unique ID of the medication. */
     private String medicationID;
+    /** The name of the medication. */
     private String name;
+    /** The current quantity of the medication in stock. */
     private int quantity;
+    /** The current replenishment request amount for the medication. */
     private int replenishmentRequest;
+    /** The low stock alert threshold for the medication. */
     private int lowStockAlert;
 
     /**

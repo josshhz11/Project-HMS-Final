@@ -7,8 +7,11 @@ import java.time.LocalDateTime;
  */
 public class Event implements Serializable {
     private static final long serialVersionUID = 1L;
+    /** The start time of the event. */
     private LocalDateTime startTime;
+    /** The end time of the event, or null if the event has no specified duration. */
     private LocalDateTime endTime;
+    /** A brief description of the event's purpose or context. */
     private String description;
 
     /**
@@ -38,21 +41,31 @@ public class Event implements Serializable {
     }
 
     /**
-     * @return The start time of the event.
+     * Retrieves the start time of the event.
+     * The start time indicates when the event begins.
+     *
+     * @return The start time of the event, as a {@code LocalDateTime}.
      */
     public LocalDateTime getStartTime() {
         return startTime;
     }
 
     /**
-     * @return The end time of the event, or `null` if the event has no specified end time.
+     * Retrieves the end time of the event, if specified.
+     * The end time indicates when the event concludes.
+     *
+     * @return The end time of the event, as a {@code LocalDateTime}, 
+     *         or {@code null} if the event has no specified end time.
      */
     public LocalDateTime getEndTime() {
         return endTime;
     }
 
     /**
-     * @return A brief description of the event.
+     * Retrieves a brief description of the event.
+     * The description provides details about the event's purpose or context.
+     *
+     * @return A brief description of the event, as a {@code String}.
      */
     public String getDescription() {
         return description;

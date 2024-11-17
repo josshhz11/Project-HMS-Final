@@ -11,13 +11,21 @@ import java.util.Scanner;
  */
 public class Appointment implements Serializable{
     private static final long serialVersionUID = 1L;
+    /** The unique identifier for the appointment. */
     private String appointmentID;
+    /** The identifier of the patient associated with this appointment. */
     private String patientID;
+    /** The identifier of the doctor assigned to this appointment. */
     private String doctorID;
+    /** The date and time of the appointment. */
     private LocalDateTime dateTime;
+     /** The current status of the appointment (e.g., "Pending", "Confirmed", "Completed"). */
     private String status;
+    /** A map of prescribed medications and their quantities. */
     private Map<Medication, Integer> prescribedMedication;
+    /** The current medication status for the appointment (e.g., "Pending to Dispense", "Dispense Complete"). */
     private String medicationStatus;
+    /** The consultation notes recorded during the appointment. */
     private String consultationNotes;
     private static Scanner sc = new Scanner(System.in);
 
@@ -54,44 +62,57 @@ public class Appointment implements Serializable{
         return appointmentID;
     }
 
-    /** 
-     * @return The ID of the doctor assigned to the appointment.
-     */
+    /**
+ * Retrieves the unique ID of the doctor assigned to this appointment.
+ *
+ * @return The unique doctor ID associated with this appointment.
+ */
     public String getDoctorID() {
         return doctorID;
     }
 
-    /** 
-     * @return The ID of the patient associated with the appointment.
-     */
+    /**
+ * Retrieves the unique ID of the patient associated with this appointment.
+ *
+ * @return The unique patient ID associated with this appointment.
+ */
     public String getPatientID(){
         return patientID;
     }
 
-     /** 
-     * @return The date and time of the appointment.
-     */
+     /**
+ * Retrieves the scheduled date and time of the appointment.
+ *
+ * @return The date and time of the appointment as a {@code LocalDateTime}.
+ */
     public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    /** 
-     * @return The current medication status of the appointment.
-     */
+    /**
+ * Retrieves the medication status of the appointment.
+ * The medication status indicates whether medication is pending, dispensed, or not prescribed.
+ *
+ * @return The medication status as a {@code String}.
+ */
     public String getMedicationStatus() {
         return medicationStatus;
     }
 
-    /** 
-     * @return A map of prescribed medications and their quantities.
-     */
+    /**
+ * Retrieves a map of medications prescribed during the appointment along with their quantities.
+ *
+ * @return A map containing {@code Medication} objects as keys and their respective quantities as values.
+ */
     public Map<Medication, Integer> getPrescribedMedication() {
         return this.prescribedMedication;
     }
 
-    /** 
-     * @return Consultation notes for the appointment.
-     */
+    /**
+ * Retrieves the consultation notes recorded during the appointment.
+ *
+ * @return The consultation notes as a {@code String}, or {@code null} if no notes are recorded.
+ */
     public String getConsultationNotes(){
         return consultationNotes;
     }
@@ -123,11 +144,12 @@ public class Appointment implements Serializable{
     }
     
     /**
-     * Completes the appointment by recording prescribed medications and consultation notes.
-     *
-     * @param inventory      The inventory instance to fetch medication details.
-     * @param appointmentID  The ID of the appointment being completed.
-     */
+ * Marks the appointment as completed by recording prescribed medications and consultation notes.
+ * Prescribed medications are added to the appointment, and their quantities are specified.
+ *
+ * @param inventory      The {@code Inventory} instance to fetch and validate medication details.
+ * @param appointmentID  The unique ID of the appointment being completed.
+ */
     public void complete(Inventory inventory, String appointmentID) {
         if (!status.equals("Confirmed")) {
             System.out.println("Only confirmed appointments can be completed.");
@@ -177,18 +199,22 @@ public class Appointment implements Serializable{
         this.medicationStatus = "Dispense Complete";
     }
 
-    /** 
-     * @return The current status of the appointment.
-     */
+    /**
+ * Retrieves the current status of the appointment.
+ * The status could be one of the following: "Pending", "Confirmed", "Completed", or "Cancelled".
+ *
+ * @return The current status of the appointment as a {@code String}.
+ */
     public String getStatus() {
         return status;
     }
 
     /**
-     * Updates the date and time of the appointment if it is pending or confirmed.
-     *
-     * @param newDateTime The new date and time for the appointment.
-     */
+ * Updates the scheduled date and time of the appointment.
+ * This action is only allowed if the appointment is in "Pending" or "Confirmed" status.
+ *
+ * @param newDateTime The new date and time for the appointment as a {@code LocalDateTime}.
+ */
     public void updateDateTime(LocalDateTime newDateTime) {
         if (!status.equals("Pending") && !status.equals("Confirmed")) {
             System.out.println("Only pending or confirmed appointments can be rescheduled.");
@@ -198,11 +224,13 @@ public class Appointment implements Serializable{
         this.dateTime = newDateTime;
     }
     
-    /** 
-     * Provides a string representation of the appointment with all details.
-     *
-     * @return A string representation of the appointment.
-     */
+    /**
+ * Provides a string representation of the appointment.
+ * Includes details such as appointment ID, patient ID, doctor ID, date and time, status, 
+ * medication status, and consultation notes.
+ *
+ * @return A string summarizing the appointment details.
+ */
     @Override
     public String toString() {
         return "Appointment [Appointment ID=" + appointmentID 

@@ -12,12 +12,19 @@ import java.util.Scanner;
  * This class handles personal information, medical records, and appointment-related actions.
  */
 public class Patient extends User {
+    /** The email address of the patient. */
     private String email;
+    /** The contact number of the patient. */
     private String contactNumber;
+     /** The date of birth of the patient (format: yyyy-MM-dd). */
     private String dateOfBirth;
+     /** The blood type of the patient. */
     private String bloodType;
+     /** The list of appointments associated with the patient. */
     private List<Appointment> appointments;
+    /** The medical record of the patient. */
     private MedicalRecord medicalRecord;
+    /** A static scanner for user input. */
     private static Scanner sc = new Scanner(System.in);
 
      /**

@@ -7,8 +7,11 @@ import java.time.LocalTime;
  */
 public class TimeRange implements Serializable {
     private static final long serialVersionUID = 1L;
+    /** The start time of the time range. */
     private LocalTime start;
+    /** The end time of the time range. */
     private LocalTime end;
+    /** The name of the event associated with this time range, if any. */
     private String eventName;
 
     /**

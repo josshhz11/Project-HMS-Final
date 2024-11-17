@@ -411,7 +411,7 @@ public class Doctor extends User {
     
         // Ask for response only if there are pending appointments
         System.out.println("Enter the Appointment ID to respond to: ");
-        String appointmentID = sc.nextLine();
+        String appointmentID = sc.next();
     
         Appointment appointment = schedulingSystem.getPendingAppointmentById(appointmentID);
         if (appointment == null) {
